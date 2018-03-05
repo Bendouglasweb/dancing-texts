@@ -48,7 +48,7 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def main():
+def get_data():
 
     # Get credentials
     credentials = get_credentials()
@@ -68,8 +68,25 @@ def main():
     if not values:
         print('No data found.')
     else:
-        for row in values:
-            print(row)
+        return values
+
+def remove_unfilled_rows(input_list):
+    output_list = []
+    for row in input_list:
+        if (len(row) > 3):
+            if (row[3] != ''):
+                output_list.append(row)
+
+    return output_list
+
+def main():
+    raw_rows = get_data()
+    values = remove_unfilled_rows(raw_rows)
+
+    print("Valid entries:")
+    for row in values:
+        print(row)
+
 
 if __name__ == '__main__':
     main()
